@@ -11,11 +11,11 @@ node {
         stage('Post-Build') { 
             sh 'php artisan key:generate'
         }
-        stage('Test') {
-            steps {
+        // stage('Test') {
+            // steps {
                 // sh './vendor/bin/phpunit'
-            }
-        }
+            // }
+        // }
         stage('Deploy') { 
             sh "chmod +x -R ${env.WORKSPACE}"
             sh './jenkins/scripts/deliver.sh'
