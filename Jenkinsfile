@@ -3,9 +3,19 @@ node {
         stage('Build') { 
             checkout scm
             sh 'composer install'
+            sh 'cp .env.example .env'
+            sh 'php artisan key:generate'
         }
     }
     docker.image('php:8.4.1-alpine').inside('-p 8009:8009') {
+        stage('Post-Build') { 
+            sh 'php artisan key:generate'
+        }
+        stage('Test') {
+            steps {
+                sh './vendor/bin/phpunit'
+            }
+        }
         stage('Deploy') { 
             sh "chmod +x -R ${env.WORKSPACE}"
             sh './jenkins/scripts/deliver.sh'
