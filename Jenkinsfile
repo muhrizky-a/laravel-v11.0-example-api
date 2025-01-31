@@ -19,6 +19,7 @@ node {
         stage('Deploy') { 
             sh "chmod +x -R ${env.WORKSPACE}"
             sh './jenkins/scripts/deliver.sh'
+            sh 'curl http://localhost:8009'
 	        input message: 'Sudah selesai menggunakan Laravel API? (Klik "Proceed" untuk mengakhiri)'
 	        sh './jenkins/scripts/kill.sh' 
         }

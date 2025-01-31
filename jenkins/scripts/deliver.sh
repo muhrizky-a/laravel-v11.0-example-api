@@ -9,7 +9,7 @@ echo 'of the previously run process (i.e. "npm start") and writes this value to'
 echo 'the file ".pidfile".'
 set -x
 php artisan serve --host 0.0.0.0 --port 8009 &
-sleep 1
+sleep 10
 echo $! > .pidfile
 set +x
 
